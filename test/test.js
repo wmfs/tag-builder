@@ -106,5 +106,14 @@ describe('Tag Builder', () => {
     }
 
     const builder = new ComponentBuilder({}, {})
+
+    const div = builder.addTag('div')
+    const input = div.addChildTag('q-input').bindToModel({ id: 'name' })
+
+    const dataPath = input.getDataPath()
+    expect(dataPath).to.eql('data')
+
+    const template = builder.compile()
+    expect(template).to.eql('<div><q-input v-model="data.name"></q-input></div>')
   })
 })
